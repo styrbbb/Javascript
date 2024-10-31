@@ -17,3 +17,11 @@ console.log(z);
 const arr = [1,2,3];
 console.log(arr);
 
+const f = false;
+console.log(f);
+
+const y4 = 'true';
+console.log(y4); 
+
+const w = undefined;
+console.log(typeof w);
