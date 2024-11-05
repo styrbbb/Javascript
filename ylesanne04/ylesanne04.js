@@ -10,6 +10,5 @@ console.log("Lisatud Laupäev ja Pühapäev: " + nadalapaevad.length);
 console.log("Sorteeri kahanevalt: " + nadalapaevad.reverse());
 console.log("Kuva viimane: " + nadalapaevad.slice(0,1));
 
-
-
+//Andmerida koodid
 
