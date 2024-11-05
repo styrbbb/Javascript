@@ -26,7 +26,7 @@ let mpnimi = "Perk";
 let e1 = menimi[0];
 let p1 = mpnimi[0];
 
-let m = `${menimi}:${mpnimi} nimetähed on ${e1}.${p1}.`;
+let m = `${menimi} ${mpnimi} nimetähed on ${e1}.${p1}.`;
 console.log(m)
 
 //Perenimed
@@ -39,5 +39,12 @@ console.log(sk.toUpperCase().split(",")[0]);
 console.log(sk.length);
 
 //E-posti aadressid
-let email = 'test123@netlog.com'
-console.log(email.replaceAll("netlog", "gmail"))
+let email = 'test123@netlog.com';
+console.log(email.replaceAll("netlog", "gmail"));
+
+//Andmerida analüüs
+let andmerida = "1,Marshal,Martinovic,mmartinovic0@dedecms.com,Male,40.19.226.175";
+let ese = "Tulemus on:";
+let esk = "ja";
+
+console.log(ese,andmerida.slice(51,70),esk,andmerida.slice(21,32));
