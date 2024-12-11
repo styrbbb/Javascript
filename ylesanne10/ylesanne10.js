@@ -17,12 +17,12 @@ const toode = {
         return Math.round(kokku * 100) / 100;
       } ,
       lisatoode() {
-        tooted.push({ nimi:'Kartul', hind: 0.80, kogus: 8});
-        console.log(toode);
+        this.tooted.push({ nimi:'Kartul', hind: 0.80, kogus: 8});
       }
     };
-   
+    
     console.log(`Ostukorv kokku: ${toode.summa()}`);
+    console.log(toode);
 
 
 
