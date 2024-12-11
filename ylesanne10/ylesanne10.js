@@ -16,13 +16,14 @@ const toode = {
         this.tooted.forEach(toode => kokku += (toode.hind*toode.kogus));  
         return Math.round(kokku * 100) / 100;
       } ,
-      lisatoode() {
-        this.tooted.push({ nimi:'Kartul', hind: 0.80, kogus: 8});
+      lisatoode(n, h, k) {
+        console.log()
+
+        //this.tooted.push({ nimi:'Kartul', hind: 0.80, kogus: 8});
       }
     };
     
     console.log(`Ostukorv kokku: ${toode.summa()}`);
-    console.log(toode);
 
 
 
