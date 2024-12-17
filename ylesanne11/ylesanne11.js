@@ -43,5 +43,56 @@ const inimesteAndmed = [
     { nimi: "Thorian Perk", isikukood: "50606227047" },
     // Lisa kontrollimiseks oma nimi ja isikukood
     ];
-
+    
+    const calculateData = (persons) => {
+        const result = [];
+        const currentDate = new Date("2024-12-17");
+    
+        persons.forEach(person => {
+            const isikukood = person.isikukood;
+    
+            // Extract the century, year, month, and day from the personal ID
+            const centuryCode = parseInt(isikukood[0]);
+            const year = parseInt(isikukood.slice(1, 3));
+            const month = parseInt(isikukood.slice(3, 5));
+            const day = parseInt(isikukood.slice(5, 7));
+    
+            // Determine the full year based on the century code
+            let fullYear;
+            if (centuryCode === 1 || centuryCode === 2) {
+                fullYear = 1800 + year;
+            } else if (centuryCode === 3 || centuryCode === 4) {
+                fullYear = 1900 + year;
+            } else if (centuryCode === 5 || centuryCode === 6) {
+                fullYear = 2000 + year;
+            } else if (centuryCode === 7 || centuryCode === 8) {
+                fullYear = 2100 + year;
+            }
+    
+            // Calculate the date of birth
+            const birthDate = new Date(fullYear, month - 1, day);
+    
+            // Calculate the age
+            let age = currentDate.getFullYear() - birthDate.getFullYear();
+            if (
+                currentDate.getMonth() < birthDate.getMonth() ||
+                (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate())
+            ) {
+                age--;
+            }
+    
+            // Add the results to the new array
+            result.push({
+                nimi: person.nimi,
+                isikukood,
+                synniaeg: birthDate.toISOString().split('T')[0], // Format as YYYY-MM-DD
+                vanus: age
+            });
+        });
+    
+        return result;
+    };
+    
+    const enrichedData = calculateData(inimesteAndmed);
+    console.log(enrichedData);
 
