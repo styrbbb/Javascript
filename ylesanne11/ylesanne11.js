@@ -43,56 +43,68 @@ const inimesteAndmed = [
     { nimi: "Thorian Perk", isikukood: "50606227047" },
     // Lisa kontrollimiseks oma nimi ja isikukood
     ];
-    
-    const calculateData = (persons) => {
-        const result = [];
-        const currentDate = new Date("2024-12-17");
-    
-        persons.forEach(person => {
-            const isikukood = person.isikukood;
-    
-            // Extract the century, year, month, and day from the personal ID
-            const centuryCode = parseInt(isikukood[0]);
-            const year = parseInt(isikukood.slice(1, 3));
-            const month = parseInt(isikukood.slice(3, 5));
-            const day = parseInt(isikukood.slice(5, 7));
-    
-            // Determine the full year based on the century code
-            let fullYear;
-            if (centuryCode === 1 || centuryCode === 2) {
-                fullYear = 1800 + year;
-            } else if (centuryCode === 3 || centuryCode === 4) {
-                fullYear = 1900 + year;
-            } else if (centuryCode === 5 || centuryCode === 6) {
-                fullYear = 2000 + year;
-            } else if (centuryCode === 7 || centuryCode === 8) {
-                fullYear = 2100 + year;
-            }
-    
-            // Calculate the date of birth
-            const birthDate = new Date(fullYear, month - 1, day);
-    
-            // Calculate the age
-            let age = currentDate.getFullYear() - birthDate.getFullYear();
-            if (
-                currentDate.getMonth() < birthDate.getMonth() ||
-                (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate())
-            ) {
-                age--;
-            }
-    
-            // Add the results to the new array
-            result.push({
-                nimi: person.nimi,
-                isikukood,
-                synniaeg: birthDate.toISOString().split('T')[0], // Format as YYYY-MM-DD
-                vanus: age
-            });
-        });
-    
-        return result;
-    };
-    
-    const enrichedData = calculateData(inimesteAndmed);
-    console.log(enrichedData);
+
+    // Funktsioon sünniaasta ja vanuse arvutamiseks
+    function arvutainimandmed(isikukood) {
+        const kuupaev = new Date("2024-12-20");
+        const esimenekood = parseInt(isikukood.charAt(0), 10);
+        const synnu = parseInt(isikukood.substring(1, 3), 10);
+
+        // Määrame sajandi sünniaasta põhjal
+        let aasta;
+        if (esimenekood === 1 || esimenekood === 2) aasta = 1800;
+        else if (esimenekood === 3 || esimenekood === 4) aasta = 1900;
+        else if (esimenekood === 5 || esimenekood === 6) aasta = 2000;
+
+        const synniaasta = aasta + synnu;
+        const synnikuupaev = new Date(synniaasta, parseInt(isikukood.substring(3, 5), 10) - 1, parseInt(isikukood.substring(5, 7), 10));
+        const vanus = kuupaev.getFullYear() - synnikuupaev - (kuupaev < new Date(kuupaev.getFullYear(), synnikuupaev.getMonth(), synnikuupaev.getDate()) ? 1 : 0);
+
+        return { synniaasta, vanus };
+    }
+
+    // Lisame meetodi inimeste massiivile
+    inimesteAndmed.forEach(nimi => {
+        const { synniaasta, vanus } = arvutainimandmed(nimi.isikukood);
+        nimi.synniaasta = synniaasta;
+        nimi.vanus = vanus;
+    });
+
+    // Väljasta tulemused
+    console.log(inimesteAndmed);
+
+
+//Kaugushype
+const opilased = [
+    { nimi: "Anna", tulemused: [4.5, 4.8, 4.6] },
+    { nimi: "Mart", tulemused: [5.2, 5.1, 5.4] },
+    { nimi: "Kati", tulemused: [4.9, 5.0, 4.7] },
+    { nimi: "Jaan", tulemused: [4.3, 4.6, 4.4] },
+    { nimi: "Liis", tulemused: [5.0, 5.2, 5.1] },
+    { nimi: "Peeter", tulemused: [5.5, 5.3, 5.4] },
+    { nimi: "Eva", tulemused: [4.8, 4.9, 4.7] },
+    { nimi: "Marten", tulemused: [4.7, 4.6, 4.8] },
+    { nimi: "Kairi", tulemused: [5.1, 5.3, 5.0] },
+    { nimi: "Rasmus", tulemused: [4.4, 4.5, 4.3] },
+];
+
+function kaugushyped(opilased) {
+    opilased.forEach(opilane => {
+      const tulemused = opilane.tulemused;
+      const parim = Math.max(...tulemused);
+      const keskmine = (
+        tulemused.reduce((sum, tulemus) => sum + tulemus, 0) / tulemused.length
+      ).toFixed(2);
+  
+      console.log(`Õpilane: ${opilane.nimi}`);
+      console.log(`Parim tulemus: ${parim}`);
+      console.log(`Keskmine tulemus: ${keskmine}`);
+      console.log("------");
+    });
+  }
+  
+  kaugushyped(opilased);
+
+//console.log(opilased);
+
 
