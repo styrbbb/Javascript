@@ -1,5 +1,5 @@
 //Thorian Perk
-//12.12.2024
+//17.12.2024
 //Javascript ülesanne 11
 
 //Nimed
