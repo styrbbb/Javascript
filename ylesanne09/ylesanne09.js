@@ -21,7 +21,19 @@ const options = {
 console.log(event.toLocaleDateString('et-EE', options));
 
 //Teadmata hulk
+const taisarvud = [1, 2, 3, 4, 5, 6]; 
 
+function koguarvjakeskmine(arr) {
+  const koguarv = arr.reduce((sum, num) => sum + num, 0);
+  const keskarv = koguarv / arr.length;
+  return {
+      sum: koguarv,
+      average: keskarv
+  };
+}
+
+const v = koguarvjakeskmine(taisarvud);
+console.log(v); // { sum: 45, average: 9 }
 
 //Salajane sõnum
 const salajanesonum = () => {
