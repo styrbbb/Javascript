@@ -4,9 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Javascript ül12</title>
+    <style>
+        body{max-width:500px;margin:0 auto;padding:0 15px}article,div{padding:10px;margin:5px;border:1px solid #dedede}
+    </style>
 </head>
 <body>
-    <script src="ylesanne12.js"></script>
-    
+    <!-- <script src="ylesanne12.js"></script> -->
+    <h1>Ostukorv</h1>
+    <ul id="ostukorv"></ul>
+    <script>
+        const toode = {
+            tooted: [
+                { nimi:'Piim', hind:3.60, kogus:2 },
+                { nimi:'Leib', hind:2.00, kogus:1 },
+                { nimi:'Munad', hind:1.50, kogus:6 },
+                { nimi:'Juust', hind:4.20, kogus:1 },
+                { nimi:'Tomatid', hind:2.30, kogus:3 },
+            ],
+            summa() {
+                let kokku = 0;
+                this.tooted.forEach(toode => kokku += (toode.hind*toode.kogus));  
+                return Math.round(kokku * 100) / 100;
+            } ,
+            lisatoode(n, h, k) {
+            
+                this.tooted.push({ nimi:n, hind:h, kogus:k});
+            }
+            };
+            toode.lisatoode('Porgand', 99, 2);
+            console.log(`Ostukorv kokku: ${toode.summa()}`);
+
+    </script>
+    <p>Ostukorvi kogusumma: <script></script> </p>
 </body>
 </html>
