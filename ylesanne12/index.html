@@ -11,7 +11,8 @@
 <body>
     <!-- <script src="ylesanne12.js"></script> -->
     <h1>Ostukorv</h1>
-    <ul id="ostukorv"></ul>
+    <ul id="Ostukorv"></ul>
+    <p id="kogusumma">Ostukorvi kogusumma: </p>
     <script>
         const toode = {
             tooted: [
@@ -31,10 +32,27 @@
                 this.tooted.push({ nimi:n, hind:h, kogus:k});
             }
             };
-            toode.lisatoode('Porgand', 99, 2);
-            console.log(`Ostukorv kokku: ${toode.summa()}`);
+            //toode.lisatoode('Porgand', 99, 2);
+                
+            function ostukorv() {
+                const listElement = document.getElementById('Ostukorv');
+                listElement.innerHTML = '';
+
+                // Lisame tooted loendisse
+                toode.tooted.forEach(t => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `Tootenimi: ${t.nimi}, Hind: ${t.hind} €, Kogus: ${t.kogus}`;
+                    listElement.appendChild(listItem);
+                });
+
+                // Kuvame summa
+                const summaElement = document.getElementById('kogusumma');
+                summaElement.innerHTML = `Ostukorvi kogusumma: ${toode.summa()} €`;
+            }
+
+            ostukorv();
 
     </script>
-    <p>Ostukorvi kogusumma: <script></script> </p>
+
 </body>
 </html>
